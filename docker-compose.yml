@@ -2,48 +2,62 @@ version: "3.8"
 services:
   redis-master:
     image: redis:alpine
+    container_name: redis-master
     networks:
-      hostnet: {}
+      redisnet: {}
 
   redis-slave:
     image: redis:alpine
+    container_name: redis-slave
+    expose:
+      - "6380"
     networks:
-      hostnet: {}
+      redisnet: {}
     command: redis-server --port 6380 --replicaof redis-master 6379
+    depends_on:
+      - redis-master
 
   sentinel-5000:
     image: redis:alpine
+    container_name: sentinel-5000
+    expose:
+      - "5000"
     networks:
-      hostnet: {}
+      redisnet: {}
     volumes:
-      - "./sentinel-5000.conf:/data/sentinel-5000.conf"
-    command: redis-server /data/sentinel-5000.conf --sentinel
+      - "./sentinel-5000.conf:/usr/local/etc/redis/sentinel-5000.conf"
+    command: redis-server /usr/local/etc/redis/sentinel-5000.conf --sentinel
     depends_on:
       - redis-master
       - redis-slave
 
   sentinel-5001:
     image: redis:alpine
+    container_name: sentinel-5001
+    expose:
+      - "5001"
     networks:
-      hostnet: {}
+      redisnet: {}
     volumes:
-      - "./sentinel-5001.conf:/data/sentinel-5001.conf"
-    command: redis-server /data/sentinel-5001.conf --sentinel
+      - "./sentinel-5001.conf:/usr/local/etc/redis/sentinel-5001.conf"
+    command: redis-server /usr/local/etc/redis/sentinel-5001.conf --sentinel
     depends_on:
       - redis-master
       - redis-slave
 
   sentinel-5002:
     image: redis:alpine
+    container_name: sentinel-5002
+    expose:
+      - "5002"
     networks:
-      hostnet: {}
+      redisnet: {}
     volumes:
-      - "./sentinel-5002.conf:/data/sentinel-5002.conf"
-    command: redis-server /data/sentinel-5002.conf --sentinel
+      - "./sentinel-5002.conf:/usr/local/etc/redis/sentinel-5002.conf"
+    command: redis-server /usr/local/etc/redis/sentinel-5002.conf --sentinel
     depends_on:
       - redis-master
       - redis-slave
 
 networks:
-  hostnet:
-    driver: bridge
+  redisnet:
