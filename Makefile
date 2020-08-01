@@ -38,6 +38,6 @@ rescue:
 failover:
 	@sudo docker-compose exec redis-master redis-cli -p 6379 DEBUG sleep 30
 
-.PHONY: failover
+.PHONY: master-addr
 master-addr:
 	@sudo docker-compose exec sentinel-5000 redis-cli -p 5000 SENTINEL get-master-addr-by-name mymaster
