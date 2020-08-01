@@ -7,19 +7,19 @@ This repository exhibits the minimal situation of Redis Sentinel deployed with D
 Rising up 1 master and 1 replica, 3 sentinels.
 
 ```bash
-make up
+sudo make up
 ```
 
 Testing failover.
 
 ```bash
-make failover
+sudo make failover
 ```
 
 Viewing all logs.
 
 ```bash
-make logs
+sudo make logs
 ```
 
 More commands, please refer to Makefile.
