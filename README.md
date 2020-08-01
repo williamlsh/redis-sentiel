@@ -22,6 +22,8 @@ Viewing all logs.
 make logs
 ```
 
+More commands, please refer to Makefile.
+
 ## Author
 
 William
