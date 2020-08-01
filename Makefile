@@ -4,40 +4,40 @@ restore:
 
 .PHONY: up
 up:
-	@sudo docker-compose up -d
+	@docker-compose up -d
 
 .PHONY: down
 down: restore
-	@sudo docker-compose down
+	@docker-compose down
 
 .PHONY: stop-master
 stop-master:
-	@sudo docker-compose stop redis-master
+	@docker-compose stop redis-master
 
 .PHONY: logs
 logs:
-	@sudo docker-compose logs --tail="all" -f
+	@docker-compose logs --tail="all" -f
 
 .PHONY: replicas-status
 replicas-status:
-	@sudo docker-compose exec sentinel-5000 redis-cli -p 5000 SENTINEL replicas mymaster
+	@docker-compose exec sentinel-5000 redis-cli -p 5000 SENTINEL replicas mymaster
 
 .PHONY: master-status
 master-status:
-	@sudo docker-compose exec sentinel-5000 redis-cli -p 5000 SENTINEL master mymaster
+	@docker-compose exec sentinel-5000 redis-cli -p 5000 SENTINEL master mymaster
 
 .PHONY: sentinels-status
 sentinels-status:
-	@sudo docker-compose exec sentinel-5000 redis-cli -p 5000 SENTINEL sentinels mymaster
+	@docker-compose exec sentinel-5000 redis-cli -p 5000 SENTINEL sentinels mymaster
 
 .PHONY: rescue
 rescue:
-	@sudo docker-compose start redis-master
+	@docker-compose start redis-master
 
 .PHONY: failover
 failover:
-	@sudo docker-compose exec redis-master redis-cli -p 6379 DEBUG sleep 30
+	@docker-compose exec redis-master redis-cli -p 6379 DEBUG sleep 30
 
 .PHONY: master-addr
 master-addr:
-	@sudo docker-compose exec sentinel-5000 redis-cli -p 5000 SENTINEL get-master-addr-by-name mymaster
+	@docker-compose exec sentinel-5000 redis-cli -p 5000 SENTINEL get-master-addr-by-name mymaster
