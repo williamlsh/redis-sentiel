@@ -1,6 +1,6 @@
 .PHONY: restore
 restore:
-	@git restore sentinel-*
+	@git restore conf
 
 .PHONY: up
 up:

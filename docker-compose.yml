@@ -25,7 +25,7 @@ services:
     networks:
       redisnet: {}
     volumes:
-      - "./sentinel-5000.conf:/usr/local/etc/redis/sentinel-5000.conf"
+      - "./conf/sentinel-5000.conf:/usr/local/etc/redis/sentinel-5000.conf"
     command: redis-server /usr/local/etc/redis/sentinel-5000.conf --sentinel
     depends_on:
       - redis-master
@@ -39,7 +39,7 @@ services:
     networks:
       redisnet: {}
     volumes:
-      - "./sentinel-5001.conf:/usr/local/etc/redis/sentinel-5001.conf"
+      - "./conf/sentinel-5001.conf:/usr/local/etc/redis/sentinel-5001.conf"
     command: redis-server /usr/local/etc/redis/sentinel-5001.conf --sentinel
     depends_on:
       - redis-master
@@ -53,7 +53,7 @@ services:
     networks:
       redisnet: {}
     volumes:
-      - "./sentinel-5002.conf:/usr/local/etc/redis/sentinel-5002.conf"
+      - "./conf/sentinel-5002.conf:/usr/local/etc/redis/sentinel-5002.conf"
     command: redis-server /usr/local/etc/redis/sentinel-5002.conf --sentinel
     depends_on:
       - redis-master
