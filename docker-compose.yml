@@ -1,55 +1,18 @@
 version: "3.8"
 services:
-  redis-master:
+  master:
     image: redis:alpine
-    container_name: redis-master
-    networks:
-      redisnet: {}
+    container_name: master
 
-  redis-slave:
+  slave:
     image: redis:alpine
-    container_name: redis-slave
-    networks:
-      redisnet: {}
-    command: redis-server --port 6380 --replicaof redis-master 6379
+    command: redis-server --replicaof master 6379
     depends_on:
-      - redis-master
+      - master
 
-  sentinel-5000:
-    image: redis:alpine
-    container_name: sentinel-5000
-    networks:
-      redisnet: {}
-    volumes:
-      - "./conf/sentinel-5000.conf:/usr/local/etc/redis/sentinel-5000.conf"
-    command: redis-server /usr/local/etc/redis/sentinel-5000.conf --sentinel
+  sentinel:
+    build: .
+    command: redis-server /usr/local/etc/redis/sentinel.conf --sentinel
     depends_on:
-      - redis-master
-      - redis-slave
-
-  sentinel-5001:
-    image: redis:alpine
-    container_name: sentinel-5001
-    networks:
-      redisnet: {}
-    volumes:
-      - "./conf/sentinel-5001.conf:/usr/local/etc/redis/sentinel-5001.conf"
-    command: redis-server /usr/local/etc/redis/sentinel-5001.conf --sentinel
-    depends_on:
-      - redis-master
-      - redis-slave
-
-  sentinel-5002:
-    image: redis:alpine
-    container_name: sentinel-5002
-    networks:
-      redisnet: {}
-    volumes:
-      - "./conf/sentinel-5002.conf:/usr/local/etc/redis/sentinel-5002.conf"
-    command: redis-server /usr/local/etc/redis/sentinel-5002.conf --sentinel
-    depends_on:
-      - redis-master
-      - redis-slave
-
-networks:
-  redisnet:
+      - master
+      - slave
