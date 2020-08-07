@@ -1,6 +1,6 @@
 # Deploy containerized Redis Sentinel with Docker Compose
 
-This repository exhibits the minimal situation of Redis Sentinel deployed with Docker compose based on [Redis Sentinel Documentation](#https://redis.io/topics/sentinel) within a *bridge* network.
+This repository exhibits the minimal situation of Redis Sentinel deployed with Docker compose based on [Redis Sentinel Documentation](#https://redis.io/topics/sentinel) within a _bridge_ network.
 
 ## Steps to deployment
 
@@ -23,6 +23,8 @@ sudo make logs
 ```
 
 More commands, please refer to Makefile.
+
+A tutorial blog post associated with this repository is at: [How to Deploy Containerized Redis Sentinel](https://williamlsh.github.io/posts/how-to-deploy-containerized-redis-sentinel/)
 
 ## Author
 
