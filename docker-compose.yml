@@ -3,6 +3,8 @@ services:
   master:
     image: redis:alpine
     container_name: master
+    ports:
+      - 6379
 
   slave:
     image: redis:alpine
