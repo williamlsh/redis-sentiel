@@ -2,6 +2,7 @@ version: "3.8"
 services:
   master:
     image: redis:alpine
+    labels: ["role=master"]
     container_name: master
     ports:
       - 6379
@@ -9,12 +10,14 @@ services:
   slave:
     image: redis:alpine
     command: redis-server --replicaof master 6379
+    labels: ["role=slave"]
     depends_on:
       - master
 
   sentinel:
     build: .
     command: redis-server /usr/local/etc/redis/sentinel.conf --sentinel
+    labels: ["role=sentinel"]
     depends_on:
       - master
       - slave
