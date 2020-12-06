@@ -16,15 +16,15 @@ logs:
 
 .PHONY: replicas-status
 replicas-status:
-	@docker-compose exec sentinel redis-cli -p 5000 SENTINEL replicas mymaster
+	@docker-compose exec sentinel redis-cli -p 26379 SENTINEL replicas mymaster
 
 .PHONY: master-status
 master-status:
-	@docker-compose exec sentinel redis-cli -p 5000 SENTINEL master mymaster
+	@docker-compose exec sentinel redis-cli -p 26379 SENTINEL master mymaster
 
 .PHONY: sentinels-status
 sentinels-status:
-	@docker-compose exec sentinel redis-cli -p 5000 SENTINEL sentinels mymaster
+	@docker-compose exec sentinel redis-cli -p 26379 SENTINEL sentinels mymaster
 
 .PHONY: rescue
 rescue:
@@ -36,4 +36,4 @@ failover:
 
 .PHONY: master-ip
 master-ip:
-	@docker-compose exec sentinel redis-cli -p 5000 SENTINEL get-master-addr-by-name mymaster
+	@docker-compose exec sentinel redis-cli -p 26379 SENTINEL get-master-addr-by-name mymaster
