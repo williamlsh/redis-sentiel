@@ -1,0 +1,20 @@
+name: Redis Sentinel
+on: [push, pull_request]
+jobs:
+  run:
+    name: Redis sentinel
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: make up
+      - run: make replicas-status
+      - run: make master-ip
+      - run: make master-status
+      - run: make sentinels-status
+      - run: make stop-master
+      - run: make rescue
+      - run: make failover
+      - run: make logs
+        timeout-minutes: 1
+        continue-on-error: true
+      - run: make down
