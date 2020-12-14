@@ -4,8 +4,6 @@ services:
     image: redis:alpine
     labels: ["role=master"]
     container_name: master
-    ports:
-      - 6379
 
   slave:
     image: redis:alpine
@@ -22,5 +20,4 @@ services:
       - master
       - slave
 
-networks:
-  hosts:
+network_mode: host

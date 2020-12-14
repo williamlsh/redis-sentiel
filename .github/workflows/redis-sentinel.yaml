@@ -7,6 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: make up
+      - run: sudo lsof -i -n -P | grep LISTEN
       - run: make replicas-status
       - run: make master-ip
       - run: make master-status
