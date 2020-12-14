@@ -21,3 +21,6 @@ services:
     depends_on:
       - master
       - slave
+
+networks:
+  hosts:
