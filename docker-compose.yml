@@ -4,8 +4,6 @@ services:
     image: redis:alpine
     labels: ["role=master"]
     container_name: master
-    ports:
-      - 6379
 
   slave:
     image: redis:alpine
@@ -15,9 +13,21 @@ services:
       - master
 
   sentinel:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.redis-sentinel
     command: redis-server /usr/local/etc/redis/sentinel.conf --sentinel
     labels: ["role=sentinel"]
     depends_on:
       - master
       - slave
+
+  haproxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.haproxy
+    labels: ["role=proxy"]
+    depends_on:
+      - master
+      - slave
+      - sentinel
