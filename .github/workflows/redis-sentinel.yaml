@@ -11,6 +11,9 @@ jobs:
       - run: make master-ip
       - run: make master-status
       - run: make sentinels-status
+      - run: make logs
+        timeout-minutes: 1
+        continue-on-error: true
       - run: make stop-master
       - run: make rescue
       - run: make failover
